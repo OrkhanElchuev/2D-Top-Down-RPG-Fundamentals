@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
+
     private Rigidbody2D rb;
     private Vector2 moveInput;
 
@@ -12,9 +13,13 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        rb.linearVelocity = moveInput * moveSpeed;
+        Vector2 targetVelocity = moveInput * moveSpeed;
+        if (rb.linearVelocity != targetVelocity)
+        {
+            rb.linearVelocity = targetVelocity;
+        }
     }
 
     public void Move(InputAction.CallbackContext context)
