@@ -34,7 +34,9 @@ public class SaveManager : MonoBehaviour
             // Read the save data from the file and apply it to the game
             SaveData saveData = JsonUtility.FromJson<SaveData>(File.ReadAllText(saveLocation));
             GameObject player = GameObject.FindGameObjectWithTag("Player");
-            player.transform.position = saveData.playerPos;
+            if (player != null)
+                player.transform.position = saveData.playerPos;
+            
             FindAnyObjectByType<CinemachineConfiner>().m_BoundingShape2D = GameObject.Find(saveData.mapBoundry).GetComponent<PolygonCollider2D>();
         }
         else
