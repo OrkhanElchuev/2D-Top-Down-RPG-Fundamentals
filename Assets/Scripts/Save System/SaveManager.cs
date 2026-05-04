@@ -6,7 +6,7 @@ public class SaveManager : MonoBehaviour
 {
     private string saveLocation;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // Start is called once before the first execution of Update after the MonoBehaviour is created     
     void Start()
     {
         // Set the save location to a file named "saveData.json" in the persistent data path
