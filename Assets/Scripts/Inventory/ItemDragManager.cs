@@ -34,6 +34,16 @@ public class ItemDragManager : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         // Check if the item was dropped on a valid slot
         Slot dropSlot = eventData.pointerEnter?.GetComponent<Slot>();
+    
+        if (dropSlot == null)
+        {
+            GameObject item = eventData.pointerEnter;
+            if (item != null)
+            {
+                dropSlot = item.GetComponentInParent<Slot>();
+            }
+        }
+
         // If the item was dropped on a valid slot, set the item's parent to that slot
         Slot originalSlot = originalParent.GetComponent<Slot>();
 
