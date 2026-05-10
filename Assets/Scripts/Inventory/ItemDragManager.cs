@@ -37,10 +37,10 @@ public class ItemDragManager : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     
         if (dropSlot == null)
         {
-            GameObject item = eventData.pointerEnter;
-            if (item != null)
+            GameObject dropItem = eventData.pointerEnter;
+            if (dropItem != null)
             {
-                dropSlot = item.GetComponentInParent<Slot>();
+                dropSlot = dropItem.GetComponentInParent<Slot>();
             }
         }
 
