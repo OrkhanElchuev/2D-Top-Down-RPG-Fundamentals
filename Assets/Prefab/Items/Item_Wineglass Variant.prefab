@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Item_Wineglass Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 5363477619318301926, guid: d6ded9cccf74c5540b237c336ed544af, type: 3}
+      propertyPath: ID
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7594511588054954910, guid: d6ded9cccf74c5540b237c336ed544af, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

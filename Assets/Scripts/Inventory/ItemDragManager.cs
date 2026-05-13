@@ -7,10 +7,8 @@ public class ItemDragManager : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     CanvasGroup canvasGroup;
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        originalParent = transform.parent;
         canvasGroup = GetComponent<CanvasGroup>();
     }
 
@@ -34,7 +32,7 @@ public class ItemDragManager : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         // Check if the item was dropped on a valid slot
         Slot dropSlot = eventData.pointerEnter?.GetComponent<Slot>();
-    
+  
         if (dropSlot == null)
         {
             GameObject dropItem = eventData.pointerEnter;

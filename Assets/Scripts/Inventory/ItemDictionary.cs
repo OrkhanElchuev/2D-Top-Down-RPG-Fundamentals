@@ -6,7 +6,7 @@ public class ItemDictionary : MonoBehaviour
     public List<Item> itemPrefabs;
     private Dictionary<int, GameObject> itemDictionary;
 
-    void Awake()
+    private void Awake()
     {
         InitializeItemDictionary();
     }
@@ -31,13 +31,13 @@ public class ItemDictionary : MonoBehaviour
     }
 
     // Method to retrieve an item prefab by its ID
-    public GameObject GetItemPrefab(int itemId)
+    public GameObject GetItemPrefab(int itemID)
     {
-        itemDictionary.TryGetValue(itemId, out GameObject itemPrefab);
-        if (itemPrefab == null)
+        itemDictionary.TryGetValue(itemID, out GameObject prefab);
+        if (prefab == null)
         {
-            Debug.LogWarning($"Item with ID {itemId} not found in the dictionary.");
+            Debug.LogWarning($"Item with ID {itemID} not found in the dictionary.");
         }
-        return itemPrefab;
+        return prefab;
     }
 }
