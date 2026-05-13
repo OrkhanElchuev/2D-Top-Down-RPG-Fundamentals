@@ -33262,7 +33262,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &493603606
 RectTransform:
   m_ObjectHideFlags: 0
@@ -33665,6 +33665,7 @@ GameObject:
   m_Component:
   - component: {fileID: 730267304}
   - component: {fileID: 730267305}
+  - component: {fileID: 730267306}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -33684,7 +33685,8 @@ Transform:
   m_LocalPosition: {x: 923.32043, y: 364.99112, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1245541735}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &730267305
@@ -33699,6 +33701,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 315c8891358b2114794df8ab98cf1cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveManager
+--- !u!114 &730267306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730267303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f78b228e35066ae49bdf5a98b09aaace, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
+  inventoryPanel: {fileID: 1571279266}
+  slotPrefab: {fileID: 7089200873902061550, guid: 9714ab38a81716c488b01baadf21fb63, type: 3}
+  itemPrefabs:
+  - {fileID: 1064047719513341651, guid: d6ded9cccf74c5540b237c336ed544af, type: 3}
+  - {fileID: 7428186410050734499, guid: 390d56cedacab504d859de77c8df0899, type: 3}
+  slotCount: 24
 --- !u!1 &788002826
 GameObject:
   m_ObjectHideFlags: 0
@@ -34651,6 +34671,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1221486139}
   m_CullTransparentMesh: 1
+--- !u!1 &1245541734
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1245541735}
+  - component: {fileID: 1245541736}
+  m_Layer: 0
+  m_Name: ItemDictionary
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1245541735
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1245541734}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 730267304}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1245541736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1245541734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eae8e0ba70603994a8696b107fb0d4fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemDictionary
+  itemPrefabs:
+  - {fileID: 5363477619318301926, guid: d6ded9cccf74c5540b237c336ed544af, type: 3}
+  - {fileID: 2575108554447180694, guid: 390d56cedacab504d859de77c8df0899, type: 3}
 --- !u!1 &1262776807
 GameObject:
   m_ObjectHideFlags: 0
@@ -34805,7 +34872,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1391941919
 RectTransform:
   m_ObjectHideFlags: 0
@@ -35255,6 +35322,7 @@ GameObject:
   - component: {fileID: 1571279267}
   - component: {fileID: 1571279269}
   - component: {fileID: 1571279268}
+  - component: {fileID: 1571279270}
   m_Layer: 5
   m_Name: InventoryPage
   m_TagString: Untagged
@@ -35319,6 +35387,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1571279266}
   m_CullTransparentMesh: 1
+--- !u!114 &1571279270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571279266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GridLayoutGroup
+  m_Padding:
+    m_Left: 100
+    m_Right: 100
+    m_Top: 130
+    m_Bottom: 100
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 100, y: 100}
+  m_Spacing: {x: 100, y: 100}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &1579133653
 GameObject:
   m_ObjectHideFlags: 0
@@ -39702,7 +39794,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1829217757
 RectTransform:
   m_ObjectHideFlags: 0
