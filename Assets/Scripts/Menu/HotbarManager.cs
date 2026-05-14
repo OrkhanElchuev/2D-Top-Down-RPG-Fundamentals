@@ -6,7 +6,9 @@ public class HotbarManager : MonoBehaviour
 {
     public GameObject hotbarPanel;
     public GameObject slotPrefab;
-    public int slotCount = 5;
+    public int slotCount = 6;
+    [SerializeField] private Transform equippedItemPosition;
+    private GameObject currentlyEquippedItem;
 
     private ItemDictionary itemDictionary;
 
@@ -31,19 +33,84 @@ public class HotbarManager : MonoBehaviour
         {
             if (Keyboard.current[hotbarKeys[i]].wasPressedThisFrame)
             {
-               UseItemInSlot(i);
+               SelectItemInSlot(i);
             }
         }
     }
 
-    // Method to use the item in the specified hotbar slot
-    void UseItemInSlot(int slotIndex)
+    // Method to select the item in the specified hotbar slot and equip it on the player
+    void SelectItemInSlot(int slotIndex)
     {
         Slot slot = hotbarPanel.transform.GetChild(slotIndex).GetComponent<Slot>();
         if (slot.currentItem != null)
         {
             Item item = slot.currentItem.GetComponent<Item>();
-            item.UseItem();
+            EquipItem(item);
+        }
+        else
+        {
+            // If slot is empty, unequip current item
+            UnequipCurrentItem();
+        }
+    }
+
+    private void EquipItem(Item item)
+    {
+        // Destroy currently equipped item if any
+        UnequipCurrentItem();
+
+        // Instantiate the item at the equipped position
+        if (equippedItemPosition != null && itemDictionary != null)
+        {
+            GameObject itemPrefab = itemDictionary.GetItemPrefab(item.ID);
+            if (itemPrefab != null)
+            {
+                currentlyEquippedItem = Instantiate(itemPrefab, equippedItemPosition);
+                currentlyEquippedItem.transform.localPosition = Vector3.zero;
+                currentlyEquippedItem.transform.localRotation = Quaternion.identity;
+                currentlyEquippedItem.transform.localScale = Vector3.one;
+            }
+        }
+    }
+
+    private void UnequipCurrentItem()
+    {
+        if (currentlyEquippedItem != null)
+        {
+            Destroy(currentlyEquippedItem);
+            currentlyEquippedItem = null;
+        }
+    }
+
+    public int GetEquippedItemID()
+    {
+        if (currentlyEquippedItem != null)
+        {
+            Item item = currentlyEquippedItem.GetComponent<Item>();
+            return item != null ? item.ID : -1;
+        }
+        return -1;
+    }
+
+    public void SetEquippedItem(int itemID)
+    {
+        if (itemID == -1)
+        {
+            UnequipCurrentItem();
+            return;
+        }
+
+        if (itemDictionary != null)
+        {
+            GameObject itemPrefab = itemDictionary.GetItemPrefab(itemID);
+            if (itemPrefab != null)
+            {
+                Item item = itemPrefab.GetComponent<Item>();
+                if (item != null)
+                {
+                    EquipItem(item);
+                }
+            }
         }
     }
 
