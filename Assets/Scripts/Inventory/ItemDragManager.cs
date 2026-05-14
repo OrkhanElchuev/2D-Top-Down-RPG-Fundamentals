@@ -15,7 +15,7 @@ public class ItemDragManager : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public void OnBeginDrag(PointerEventData eventData)
     {
         originalParent = transform.parent;
-        transform.SetParent(transform.root);
+        transform.SetParent(transform.root, false);
         canvasGroup.blocksRaycasts = false;
         canvasGroup.alpha = 0.6f; // Make the item semi-transparent while dragging
     }
@@ -51,7 +51,7 @@ public class ItemDragManager : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             if (dropSlot.currentItem != null)
             {
                 // Move the item from the drop slot back to the original slot
-                dropSlot.currentItem.transform.SetParent(originalSlot.transform);
+                dropSlot.currentItem.transform.SetParent(originalSlot.transform, false);
                 originalSlot.currentItem = dropSlot.currentItem;
                 dropSlot.currentItem.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
             }
@@ -61,13 +61,13 @@ public class ItemDragManager : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             }
 
             // Set the dragged item as the current item of the drop slot
-            transform.SetParent(dropSlot.transform);
+            transform.SetParent(dropSlot.transform, false);
             dropSlot.currentItem = gameObject;
         }
         else
         {
             // If the item was not dropped on a valid slot, return it to its original position
-            transform.SetParent(originalParent);
+            transform.SetParent(originalParent, false);
         }
 
         GetComponent<RectTransform>().anchoredPosition = Vector2.zero; // Reset the item's position to the center of the slot

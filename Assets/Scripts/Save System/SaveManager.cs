@@ -7,13 +7,15 @@ public class SaveManager : MonoBehaviour
     private string saveLocation;
     private InventoryManager inventoryManager;
 
+    private void Awake()
+    {
+        saveLocation = Path.Combine(Application.persistentDataPath, "saveData.json");
+        inventoryManager = FindAnyObjectByType<InventoryManager>();
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created     
     void Start()
     {
-        // Set the save location to a file named "saveData.json" in the persistent data path
-        saveLocation = Path.Combine(Application.persistentDataPath, "saveData.json");
-        inventoryManager = FindAnyObjectByType<InventoryManager>();
-
         LoadGame();
     }
 
