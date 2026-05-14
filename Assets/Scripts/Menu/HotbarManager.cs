@@ -112,6 +112,7 @@ public class HotbarManager : MonoBehaviour
         equippedItem.transform.localRotation = Quaternion.identity;
         equippedItem.transform.localScale = Vector2.one * scaleMultiplier;
         SetLayerRecursive(equippedItem, 5);
+        SetSortingOrderRecursive(equippedItem, 5);
     }
 
     private void SetLayerRecursive(GameObject obj, int layer)
@@ -120,6 +121,19 @@ public class HotbarManager : MonoBehaviour
         foreach (Transform child in obj.transform)
         {
             SetLayerRecursive(child.gameObject, layer);
+        }
+    }
+
+    private void SetSortingOrderRecursive(GameObject obj, int sortingOrder)
+    {
+        SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sortingOrder = sortingOrder;
+        }
+        foreach (Transform child in obj.transform)
+        {
+            SetSortingOrderRecursive(child.gameObject, sortingOrder);
         }
     }
 
