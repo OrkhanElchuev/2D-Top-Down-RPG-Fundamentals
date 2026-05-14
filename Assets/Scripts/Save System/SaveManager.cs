@@ -6,11 +6,13 @@ public class SaveManager : MonoBehaviour
 {
     private string saveLocation;
     private InventoryManager inventoryManager;
+    private HotbarManager hotbarManager;
 
     private void Awake()
     {
         saveLocation = Path.Combine(Application.persistentDataPath, "saveData.json");
         inventoryManager = FindAnyObjectByType<InventoryManager>();
+        hotbarManager = FindAnyObjectByType<HotbarManager>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created     
@@ -25,7 +27,8 @@ public class SaveManager : MonoBehaviour
         {
             playerPos = GameObject.FindGameObjectWithTag("Player").transform.position,
             mapBoundry = FindAnyObjectByType<CinemachineConfiner>().m_BoundingShape2D.gameObject.name,
-            inventorySaveData = inventoryManager.GetInventoryItems()
+            inventorySaveData = inventoryManager.GetInventoryItems(),
+            hotbarSaveData = hotbarManager.GetHotbarItems()
         };
 
         File.WriteAllText(saveLocation, JsonUtility.ToJson(saveData));
@@ -44,6 +47,7 @@ public class SaveManager : MonoBehaviour
             
             FindAnyObjectByType<CinemachineConfiner>().m_BoundingShape2D = GameObject.Find(saveData.mapBoundry).GetComponent<PolygonCollider2D>();
             inventoryManager.SetInventoryItems(saveData.inventorySaveData);
+            hotbarManager.SetHotbarItems(saveData.hotbarSaveData);
         }
         else
         {
