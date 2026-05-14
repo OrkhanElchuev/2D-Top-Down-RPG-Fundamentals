@@ -15,6 +15,24 @@ public class InventoryManager : MonoBehaviour
         itemDictionary = FindAnyObjectByType<ItemDictionary>();
     }
 
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public bool AddItem(GameObject itemPrefab)
+    {
+        foreach(Transform slotTransform in inventoryPanel.transform)
+        {
+            Slot slot = slotTransform.GetComponent<Slot>();
+            if (slot.currentItem == null && slot != null)
+            {
+                GameObject newItem = Instantiate(itemPrefab, slotTransform);
+                newItem.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+                slot.currentItem = newItem;
+                return true;
+            }
+        }
+        Debug.LogWarning("Inventory is full! Cannot add item: " + itemPrefab.name);
+        return false;
+    }
+
     // Method to retrieve the current inventory items and their slot indices for saving
     public List<InventorySaveData> GetInventoryItems()
     {
