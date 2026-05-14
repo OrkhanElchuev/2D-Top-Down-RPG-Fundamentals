@@ -35380,7 +35380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   popupPrefab: {fileID: 6277428534572528115, guid: d7e7e970e8c005549bb9272c3511328a, type: 3}
   maxPopups: 5
-  popupDuration: 3
+  popupDuration: 100
 --- !u!1 &1542669640
 GameObject:
   m_ObjectHideFlags: 0
