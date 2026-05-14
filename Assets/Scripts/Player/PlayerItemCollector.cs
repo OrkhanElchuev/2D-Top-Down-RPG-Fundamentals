@@ -45,7 +45,7 @@ public class PlayerItemCollector : MonoBehaviour
             {
                 currentItemCollider = collision;
                 if (pickupPrompt != null)
-                    pickupPrompt.text = "(E) Pick up ";
+                    pickupPrompt.text = "(E) Pick up " + item.Name;
             }
         }
     }
@@ -74,6 +74,7 @@ public class PlayerItemCollector : MonoBehaviour
             bool itemAdded = inventoryManager.AddItem(itemCollider.gameObject);
             if (itemAdded)
             {
+                item.PickUp();
                 currentItemCollider = null;
                 if (pickupPrompt != null)
                     pickupPrompt.text = "";

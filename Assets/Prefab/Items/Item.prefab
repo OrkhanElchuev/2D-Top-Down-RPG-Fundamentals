@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
   ID: 1
+  Name: Duck
 --- !u!212 &-6637625671849980511
 SpriteRenderer:
   serializedVersion: 2
