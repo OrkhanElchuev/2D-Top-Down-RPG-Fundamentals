@@ -8,11 +8,12 @@ public class HotbarManager : MonoBehaviour
     public GameObject slotPrefab;
     public int slotCount = 6;
     [SerializeField] private Transform equippedItemPosition;
-    [SerializeField] private Transform equippedItemPositionUp;
+    [SerializeField] private Transform equippedItemPositionLeft;
     private GameObject currentlyEquippedItem;
 
     private ItemDictionary itemDictionary;
     private PlayerMovement playerMovement;
+    private Vector2 lastMoveDirection;
 
     private Key[] hotbarKeys;
 
@@ -32,6 +33,7 @@ public class HotbarManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdateLastMoveDirection();
         RefreshEquippedItemPosition();
 
         for (int i = 0; i < slotCount; i++)
@@ -41,6 +43,16 @@ public class HotbarManager : MonoBehaviour
                SelectItemInSlot(i);
             }
         }
+    }
+
+    private void UpdateLastMoveDirection()
+    {
+        if (playerMovement == null)
+            return;
+
+        Vector2 currentInput = playerMovement.MoveInput;
+        if (currentInput != Vector2.zero)
+            lastMoveDirection = currentInput.normalized;
     }
 
     // Method to select the item in the specified hotbar slot and equip it on the player
@@ -71,9 +83,7 @@ public class HotbarManager : MonoBehaviour
             if (itemPrefab != null)
             {
                 currentlyEquippedItem = Instantiate(itemPrefab, targetPosition);
-                currentlyEquippedItem.transform.localPosition = Vector3.zero;
-                currentlyEquippedItem.transform.localRotation = Quaternion.identity;
-                currentlyEquippedItem.transform.localScale = Vector3.one;
+                ApplyEquippedItemTransform(currentlyEquippedItem);
             }
         }
     }
@@ -90,16 +100,33 @@ public class HotbarManager : MonoBehaviour
         if (currentlyEquippedItem.transform.parent != targetPosition)
         {
             currentlyEquippedItem.transform.SetParent(targetPosition, false);
-            currentlyEquippedItem.transform.localPosition = Vector3.zero;
-            currentlyEquippedItem.transform.localRotation = Quaternion.identity;
-            currentlyEquippedItem.transform.localScale = Vector3.one;
+        }
+
+        ApplyEquippedItemTransform(currentlyEquippedItem);
+    }
+
+    private void ApplyEquippedItemTransform(GameObject equippedItem)
+    {
+        float scaleMultiplier = 0.6f; // Adjust this value as needed for proper sizing
+        equippedItem.transform.localPosition = Vector2.zero;
+        equippedItem.transform.localRotation = Quaternion.identity;
+        equippedItem.transform.localScale = Vector2.one * scaleMultiplier;
+        SetLayerRecursive(equippedItem, 5);
+    }
+
+    private void SetLayerRecursive(GameObject obj, int layer)
+    {
+        obj.layer = layer;
+        foreach (Transform child in obj.transform)
+        {
+            SetLayerRecursive(child.gameObject, layer);
         }
     }
 
     private Transform GetCurrentEquipTransform()
     {
-        if (playerMovement != null && playerMovement.MoveInput.y > 0f && equippedItemPositionUp != null)
-            return equippedItemPositionUp;
+        if (lastMoveDirection.x < 0f && equippedItemPositionLeft != null)
+            return equippedItemPositionLeft;
 
         return equippedItemPosition;
     }
