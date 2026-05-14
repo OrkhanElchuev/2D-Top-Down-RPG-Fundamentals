@@ -8,4 +8,5 @@ public class SaveData
     public string mapBoundry; // Boundary name
     public List<InventorySaveData> inventorySaveData;
     public List<InventorySaveData> hotbarSaveData;
+    public int equippedItemID = -1; // -1 means no item equipped
 }

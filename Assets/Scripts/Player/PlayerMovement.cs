@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private Animator animator;
 
+    public Vector2 MoveInput => moveInput;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();

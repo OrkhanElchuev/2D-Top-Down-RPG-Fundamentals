@@ -104,6 +104,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b83708aacc2671249b444cb46ef65c04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemDragManager
+  minDropDistance: 1
+  maxDropDistance: 3
 --- !u!114 &1814205420607991536
 MonoBehaviour:
   m_ObjectHideFlags: 0
