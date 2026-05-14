@@ -104,6 +104,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b83708aacc2671249b444cb46ef65c04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemDragManager
+  minDropDistance: 1
+  maxDropDistance: 3
 --- !u!114 &1814205420607991536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,7 +167,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 145622031
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: -8356044369073664190, guid: 64fbb5c8f04830947a5ce0ef5cc0f0de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

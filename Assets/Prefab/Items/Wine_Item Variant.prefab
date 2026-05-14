@@ -12,6 +12,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 5284756159409981420, guid: 64fbb5c8f04830947a5ce0ef5cc0f0de, type: 3}
+    - target: {fileID: -6637625671849980511, guid: d6ded9cccf74c5540b237c336ed544af, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814205420607991536, guid: d6ded9cccf74c5540b237c336ed544af, type: 3}
+      propertyPath: ID
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1814205420607991536, guid: d6ded9cccf74c5540b237c336ed544af, type: 3}
       propertyPath: Name
       value: Red Wine

@@ -8,15 +8,18 @@ public class HotbarManager : MonoBehaviour
     public GameObject slotPrefab;
     public int slotCount = 6;
     [SerializeField] private Transform equippedItemPosition;
+    [SerializeField] private Transform equippedItemPositionUp;
     private GameObject currentlyEquippedItem;
 
     private ItemDictionary itemDictionary;
+    private PlayerMovement playerMovement;
 
     private Key[] hotbarKeys;
 
     private void Awake()
     {
         itemDictionary = FindAnyObjectByType<ItemDictionary>();
+        playerMovement = FindAnyObjectByType<PlayerMovement>();
 
         hotbarKeys = new Key[slotCount];
         for (int i = 0; i < slotCount; i++)
@@ -29,6 +32,8 @@ public class HotbarManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        RefreshEquippedItemPosition();
+
         for (int i = 0; i < slotCount; i++)
         {
             if (Keyboard.current[hotbarKeys[i]].wasPressedThisFrame)
@@ -59,18 +64,44 @@ public class HotbarManager : MonoBehaviour
         // Destroy currently equipped item if any
         UnequipCurrentItem();
 
-        // Instantiate the item at the equipped position
-        if (equippedItemPosition != null && itemDictionary != null)
+        Transform targetPosition = GetCurrentEquipTransform();
+        if (targetPosition != null && itemDictionary != null)
         {
             GameObject itemPrefab = itemDictionary.GetItemPrefab(item.ID);
             if (itemPrefab != null)
             {
-                currentlyEquippedItem = Instantiate(itemPrefab, equippedItemPosition);
+                currentlyEquippedItem = Instantiate(itemPrefab, targetPosition);
                 currentlyEquippedItem.transform.localPosition = Vector3.zero;
                 currentlyEquippedItem.transform.localRotation = Quaternion.identity;
                 currentlyEquippedItem.transform.localScale = Vector3.one;
             }
         }
+    }
+
+    private void RefreshEquippedItemPosition()
+    {
+        if (currentlyEquippedItem == null)
+            return;
+
+        Transform targetPosition = GetCurrentEquipTransform();
+        if (targetPosition == null)
+            return;
+
+        if (currentlyEquippedItem.transform.parent != targetPosition)
+        {
+            currentlyEquippedItem.transform.SetParent(targetPosition, false);
+            currentlyEquippedItem.transform.localPosition = Vector3.zero;
+            currentlyEquippedItem.transform.localRotation = Quaternion.identity;
+            currentlyEquippedItem.transform.localScale = Vector3.one;
+        }
+    }
+
+    private Transform GetCurrentEquipTransform()
+    {
+        if (playerMovement != null && playerMovement.MoveInput.y > 0f && equippedItemPositionUp != null)
+            return equippedItemPositionUp;
+
+        return equippedItemPosition;
     }
 
     private void UnequipCurrentItem()
